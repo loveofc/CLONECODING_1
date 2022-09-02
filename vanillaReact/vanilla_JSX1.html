@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vanilla react</title>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+<script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel">
+    let counter=0;
+    let str ="Hello";
+    const root = document.getElementById('root');
+    const title =(<h3 id="title" onClick={()=>{str ="Hello, React"}}></h3>)    
+    const span = React.createElement("span", null, "Hello I'm a span ");
+    const button = (<button style={{ backgroundColor : 'tomato'}} onClick ={()=>{ console.log(++counter)}}>Click me</button>  )
+    const container = React.createElement("div",null,[title,span,button])
+    ReactDOM.render(container, root);
+</script>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Converter</title>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+<script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel">
+    function MinToHours(){
+        let [amount, setAmount] = React.useState(0)
+        let [flipped, setFlipped] = React.useState(false);
+        const onChange =(e)=>{
+            setAmount(e.target.value)
+        }
+        const onReset = ()=> setAmount(0)
+        const onFlip=()=>{
+            onReset();
+            setFlipped((bool)=>!bool);
+        }
+        return (
+            <div>      
+                <h3>Min to Hours</h3>          
+                <label htmlFor="minutes">Minutes</label>
+                <input value={!flipped ? amount:Math.round(amount*60)} id="minutes" placeholder="Minutes" type="number" onChange={onChange} disabled ={flipped===true} /><br/>
+                <div>You want to covert minutes = {!flipped ? amount:Math.round(amount*60)}</div>
+                <label htmlFor="hours">Hours</label>
+                <input value={flipped ? amount:Math.round(amount/60)} id="hours" placeholder="Hours" type="number" onChange={onChange} disabled ={flipped===false}/>
+                <div>You want to covert Hours = {flipped ? amount:Math.round(amount/60)}</div>
+                <div>
+                    <button onClick={onReset}>Reset</button> 
+                    <button onClick={onFlip}>Flip</button>
+                </div>
+            </div>
+        )
+    }
+    function KmToMiles(){
+        let [amount, setAmount] = React.useState(0)
+        let [flipped, setFlipped] = React.useState(false);
+        const onChange =(e)=>{
+             setAmount(e.target.value)
+        }
+        const onReset = ()=> setAmount(0)
+        const onFlip=()=>{
+            onReset();
+            setFlipped((bool)=>!bool);
+        }
+        return( 
+            <div>
+                <h3>Km To Miles</h3>
+                <label htmlFor="minutes">Km</label>
+                    <input value={!flipped ? amount:amount*1.609} id="minutes" placeholder="Minutes" type="number" onChange={onChange} disabled ={flipped===true} /><br/>
+                    <div>You want to covert Km = {!flipped ? amount:"about"+amount*1.609}</div>
+                    <label htmlFor="hours">Miles</label>
+                    <input value={flipped ? amount:Math.round(amount/1.609)} id="hours" placeholder="Hours" type="number" onChange={onChange} disabled ={flipped===false}/>
+                    <div>You want to covert Miles = {flipped ? amount:"about"+Math.round(amount/1.609)}</div>
+                    <div>
+                        <button onClick={onReset}>Reset</button> 
+                        <button onClick={onFlip}>Flip</button>
+                </div>
+            </div>
+        );
+    }
+    function App(){      
+        const [index, setIndex] = React.useState("xx"); 
+        const onSelect =(event)=>{
+            setIndex(event.target.value)
+            console.log(event.target.value)
+        }
+        return (
+            <div>
+                <h1 className="hi">Super Converter</h1>
+                <select onChange={onSelect}>
+                    <option value="xx">Select your units</option>
+                    <option value="0">Minutes & Hours</option>
+                    <option value="1">Km & Miles</option>
+                </select>
+                <hr/>
+                {index === "xx" ? "Please select your units" :null} 
+                {index ==="0" ? <MinToHours/> :null} 
+                {index ==="1" ? <KmToMiles/> :null} 
+            </div>
+        );
+    }
+    ReactDOM.render(<App/>, root);
+</script>
+</html>
